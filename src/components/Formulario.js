@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
-const Formulario = () => {
+const Formulario = ({ crearTarea }) => {
     
     //crear state de tareas
     const [tarea, actualizarTarea] = useState({
@@ -12,41 +13,42 @@ const Formulario = () => {
         detalle:'',
     });
 
+    // error
+    const [error, actualizarError] = useState(false);
+
     // Extraer valores de la tarea
-    const { nombre, apellido, fecha, hora, estado, detalle } = tarea
+    const { nombre, apellido, fecha, hora, estado, detalle } = tarea;
 
     //actualizar state de tareas
-    const actualizarState = evento => {
+    const actualizarState = e => {
        actualizarTarea({
            ...tarea,
-           [evento.target.name]: evento.target.value
+           [e.target.name]: e.target.value
        });
     };
 
     //cuando el user presiona agreagr tarea
-    const submitTarea = evento => {
-        evento.preventDefault();
-        console.log('enviando..');
+    const submitTarea = e => {
+        e.preventDefault();
 
         // Valida si hay campos en blanco en el form
         if(nombre.trim() === '' || apellido.trim() === ''
         || fecha.trim() === '' || hora.trim() === ''
         || estado.trim() === '' || detalle.trim() === ''){
-            //actualizarError(true)
-            console.log('error');
+            actualizarError(true)
             return;
         }
 
         // Eliminar el mensaje previo
-        //actualizarError(false)
+        actualizarError(false);
 
         //Asignar un ID
-        //tarea.id = uuidv4()
-        console.log(tarea)
+        tarea.id = uuidv4();
+        console.log(tarea);
 
 
         // Craer la nueva tarea
-        //crearTarea(tarea)
+        crearTarea(tarea);
 
         // Reainicar el form
          actualizarTarea({
@@ -62,6 +64,8 @@ const Formulario = () => {
     return (
         <>
         <h2>Crear tarea</h2>
+
+         { error ? <p className="alert-error">Todos los campos son obligatorios</p> : null}
 
         <form
             onSubmit={submitTarea}
@@ -106,15 +110,14 @@ const Formulario = () => {
             />
 
             <label>Estado de la Tarea</label>
-            <select
+            <input
+                type="text"
                 name="estado"
+                className="u-full-width"
+                placeholder="Estado de la tarea"
                 onChange={actualizarState}
-                value={estado}
-            >
-                <option value="doing">Doing</option>
-                <option value="blocked" selected>Blocked</option>
-                <option value="done">Done</option>
-            </select>
+                value={estado} 
+            />
 
             <label>Detalle de la tarea</label>
             <textarea

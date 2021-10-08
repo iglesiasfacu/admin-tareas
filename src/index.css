@@ -32,3 +32,49 @@ button {
   font-size: 13px;
   letter-spacing: 1px;
 }
+
+input[type="date"],
+input[type="time"] {
+  height: 48px;
+  padding: 6px 10px;
+  background-color: #fff;
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+  box-shadow: none;
+  box-sizing: border-box;
+}
+
+.tarea {
+  padding: 2rem;
+  background-color: #fff;
+  border-bottom: 1px solid#e1e1e1;
+  color: black;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.tarea p {
+  font-weight: bold;
+  margin-bottom: 0.8rem;
+}
+
+.tarea p span {
+  font-weight: normal;
+}
+
+.button.eliminar,
+.button.el:hover {
+  background-color: #c10059;
+  color: white;
+  margin-top: 2rem;
+}
+
+.alert-error {
+  background-color: #c10059;
+  color: redpurple;
+  padding: 1rem;
+  font-size: 2rem;
+  text-transform: uppercase;
+  text-align: center;
+  font-family: "Staatliches", cursive;
+}
